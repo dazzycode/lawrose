@@ -13,18 +13,12 @@ export default function Collection() {
       };
     const [collectionOpen, setCollectionOpen] = useState(false);
   return (
-<div className="min-h-screen w-full  px-2 sm:px-6 md:px-3 bg-white text-gray-900">
+<div className="min-h-screen w-full overflow-x-hidden px-2 sm:px-6 md:px-3 bg-white text-gray-900">
       {/* Top navigation */}
        <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
           {/* Left Side */}
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-            >
-              <FaArrowLeft size={16} />
-              <span className="text-sm">Back</span>
-            </button>
+         
     
             {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-4 text-sm relative">
@@ -365,17 +359,17 @@ function CollectionCard({ image, tag, title, description, itemsAvailable, slug }
         <img src={image} alt={title} className="object-cover w-full h-full" />
       </div>
       <div className="p-4">
-        <span className="text-xs text-black bg-gray-400 px-2 py-1 rounded-lg inline-block">
+        <span className="text-xs md:text-sm text-black bg-gray-400 px-2 py-1 rounded-lg inline-block">
           {tag}
         </span>
         <h3 className="mt-3 text-lg font-bold">{title}</h3>
-        <p className="mt-2 text-xs text-gray-600">{description}</p>
+        <p className="mt-2 text-xs  md:text-sm text-gray-600">{description}</p>
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-xs text-gray-500">{itemsAvailable} Pieces available</div>
+          <div className="text-xs  md:text-sm text-gray-500">{itemsAvailable} Pieces available</div>
           <Link 
             to={slug}  
-            className="text-xs text-black inline-flex items-center"
+            className="text-xs  md:text-sm text-black inline-flex items-center"
           >
             Explore collection →
           </Link>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { FaArrowLeft, FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaPlus, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaPlus, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function Men() {
-       const navigate = useNavigate();
       const [menuOpen, setMenuOpen] = useState(false);
     const products = new Array(8).fill({
   name: "Embroidered Semi-collar Shirt",
@@ -18,18 +16,12 @@ export default function Men() {
       };
     const [collectionOpen, setCollectionOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen overflow-x-hidden bg-white text-gray-900">
       {/* Top navigation */}
      <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
                {/* Left Side */}
                <div className="flex items-center gap-4">
-                 <button
-                   onClick={() => navigate(-1)}
-                   className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-                 >
-                   <FaArrowLeft size={16} />
-                   <span className="text-sm">Back</span>
-                 </button>
+               
          
                  {/* Desktop Nav */}
                  <nav className="hidden md:flex items-center gap-4 text-sm relative">
@@ -209,13 +201,13 @@ export default function Men() {
   <h2 className="text-xl font-bold">
     New arrivals
   </h2>
-  <p className="text-xs">
+  <p className="text-xs md:text-sm ">
     The latest additions to our men's collection
   </p>
 </div>
 
 
- <Link to="#" className="text-sm text-gray-600">View all →</Link>
+ <Link to="/shop" className="text-sm text-gray-600">View all →</Link>
         </div>
        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
            {products.slice(0, 4).map((item, index) => (
@@ -231,12 +223,12 @@ export default function Men() {
                {/* Bottom section: name + price + plus button */}
                <div className="p-3 flex items-center justify-between">
                  <div>
-                   <div className="text-xs font-medium text-gray-900">{item.name}</div>
-                   <div className="text-xs text-gray-600">{item.price}</div>
+                   <div className="text-xs md:text-sm font-medium text-gray-900">{item.name}</div>
+                   <div className="text-xs md:text-sm text-gray-600">{item.price}</div>
                  </div>
-                 <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
+               <Link to="/explore">  <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
                    <FaPlus size={14} />
-                 </button>
+                 </button></Link>
                </div>
              </div>
            ))}
@@ -247,7 +239,7 @@ export default function Men() {
       <section className="bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl text-center font-bold mb-2">Shop by Category</h2>
-                          <p className="text-xs text-center mb-6">Explore our carefully curated categories designed for the modern man's lifestyle</p>
+                          <p className="text-xs md:text-sm text-center mb-6">Explore our carefully curated categories designed for the modern man's lifestyle</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {Array(4).fill(0).map((_, i) => (
@@ -255,8 +247,8 @@ export default function Men() {
                 <img src="/men.png" alt="Shirts" className="w-full h-48 object-cover" />
                 <div className="p-4">
                   <h3 className="text-sm font-semibold">Shirts</h3>
-                  <p className="text-xs text-gray-500">Classic and contemporary shirts for every</p>
-                  <Link to="/explore" className="text-xs mt-2 inline-block">Shop now →</Link>
+                  <p className="text-xs md:text-sm text-gray-500">Classic and contemporary shirts for every</p>
+                  <Link to="/continue" className="text-xs md:text-sm mt-2 inline-block">Shop now →</Link>
                 </div>
               </div>
             ))}
@@ -267,7 +259,7 @@ export default function Men() {
       {/* Featured collections */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h2 className="text-xl text-center font-bold mb-2">Featured collections</h2>
-                <p className="text-xs text-center mb-6">Discover our signature collections crafted for the discerning gentleman</p>
+                <p className="text-xs md:text-sm text-center mb-6">Discover our signature collections crafted for the discerning gentleman</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <CollectionCard
@@ -398,13 +390,13 @@ function CollectionCard({ image, tag, title, description, itemsAvailable, slug }
           {tag}
         </span>
         <h3 className="mt-3 text-lg font-bold">{title}</h3>
-        <p className="mt-2 text-xs text-gray-600">{description}</p>
+        <p className="mt-2 text-xs md:text-sm text-gray-600">{description}</p>
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-xs text-gray-500">{itemsAvailable} Pieces available</div>
+          <div className="text-xs md:text-sm text-gray-500">{itemsAvailable} Pieces available</div>
           <Link 
             to={slug}  
-            className="text-xs text-black inline-flex items-center"
+            className="text-xs md:text-sm text-black inline-flex items-center"
           >
             Explore collection →
           </Link>

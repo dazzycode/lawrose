@@ -62,20 +62,14 @@ const [openDropdown, setOpenDropdown] = useState(false);
 const [collectionOpen, setCollectionOpen] = useState(false);
 
   return (
-    <div className="font-libre w-full px-4 sm:px-6 md:px-3 bg-white text-black">
+    <div className="font-libre w-full overflow-x-hidden  px-4 sm:px-6 md:px-3 bg-white text-black">
 
       {/* Header */}
 
      <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
                {/* Left Side */}
                <div className="flex items-center gap-4">
-                 <button
-                   onClick={() => navigate(-1)}
-                   className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-                 >
-                   <FaArrowLeft size={16} />
-                   <span className="text-sm">Back</span>
-                 </button>
+                
          
                  {/* Desktop Nav */}
                  <nav className="hidden md:flex items-center gap-4 text-sm relative">
@@ -322,9 +316,9 @@ Gulf Club Collection         </Link>
                   <div className="text-xs font-medium text-gray-900">{item.name}</div>
                   <div className="text-xs text-gray-600">{item.price}</div>
                 </div>
-                <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
+              <Link to="/explore">  <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
                   <FaPlus size={14} />
-                </button>
+                </button></Link>
               </div>
             </div>
           ))}

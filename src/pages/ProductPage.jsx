@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { FaHeart, FaSearch, FaShoppingCart,  FaEnvelope, FaPlus, FaTimes, FaBars, FaArrowLeft, FaFacebook, FaInstagram, FaWhatsapp, FaTwitter } from 'react-icons/fa';
+import { FaHeart, FaSearch, FaShoppingCart,  FaEnvelope, FaPlus, FaTimes, FaBars, FaFacebook, FaInstagram, FaWhatsapp, FaTwitter } from 'react-icons/fa';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function ProductPage() {
   const images = [
@@ -11,7 +10,6 @@ export default function ProductPage() {
         "/shirt.png",
 
   ];
-   const navigate = useNavigate();
           const [menuOpen, setMenuOpen] = useState(false);
   
 const products = new Array(8).fill({
@@ -27,18 +25,12 @@ const products = new Array(8).fill({
     const [collectionOpen, setCollectionOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(images[0]);
   return (
-    <div className="font-libre  w-full px-4 sm:px-6 md:px-3 bg-white text-black">
+    <div className="font-libre overflow-x-hidden  w-full px-4 sm:px-6 md:px-3 bg-white text-black">
       {/* Top Navbar */}
   <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
                     {/* Left Side */}
                     <div className="flex items-center gap-4">
-                      <button
-                        onClick={() => navigate(-1)}
-                        className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-                      >
-                        <FaArrowLeft size={16} />
-                        <span className="text-sm">Back</span>
-                      </button>
+                    
               
                       {/* Desktop Nav */}
                       <nav className="hidden md:flex items-center gap-4 text-sm relative">

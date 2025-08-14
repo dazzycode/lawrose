@@ -23,7 +23,7 @@ export default function HomePage() {
       };
     const [collectionOpen, setCollectionOpen] = useState(false);
   return (
-    <div className="font-libre  w-full  bg-white text-black">
+    <div className="font-libre overflow-x-hidden w-full bg-white text-black">
 
  <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
                    {/* Left Side */}
@@ -210,9 +210,9 @@ export default function HomePage() {
             <div className="text-xs font-medium text-gray-900">{item.name}</div>
             <div className="text-xs text-gray-600">{item.price}</div>
           </div>
-          <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
+       <Link to="/explore"> <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
             <FaPlus size={14} />
-          </button>
+          </button></Link>  
         </div>
       </div>
   ))}
@@ -258,9 +258,9 @@ export default function HomePage() {
             <div className="text-xs font-medium text-gray-900">{item.name}</div>
             <div className="text-xs text-gray-600">{item.price}</div>
           </div>
-          <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
+        <Link to="/explore"> <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
             <FaPlus size={14} />
-          </button>
+          </button></Link> 
         </div>
       </div>
     ))}
@@ -278,8 +278,8 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-     <footer className="bg-[#00071B] text-white py-10 px-6 md:px-16 text-sm">
-                               <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
+     <footer className="bg-[#00071B] text-white w-full py-10 px-10 overflow-x-hidden text-sm">
+                               <div className="grid max-w-screen-xl mx-auto px-4 py-6 grid-cols-2 md:grid-cols-6 gap-6">
                                  <div>
                                    <h4 className="font-bold mb-2">Women</h4>
                                    <ul>
@@ -330,9 +330,9 @@ export default function HomePage() {
                                                     <p className="font-semibold text-xs my-4 mb-2">Stay in touch to get special offers, free giveaways
                   and once in a lifetime deals</p>
                   
-                                  <div className="flex items-center my-6 border border-white rounded-md w-[200px]">
+                                  <div className="flex items-center px-22  my-6 border border-white rounded-md w-[150px]">
                          {/* Email icon */}
-                         <span className="px-3 text-white">
+                         <span className=" px-1 text-white">
                            <FaEnvelope />
                          </span>
                        

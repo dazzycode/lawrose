@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { FaArrowLeft, FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
  
 export default function Shop() {
 
- const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 const productData = [
   {
@@ -210,19 +209,13 @@ const [openDropdown, setOpenDropdown] = useState(false);
 const [collectionOpen, setCollectionOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen overflow-x-hidden flex flex-col">
       {/* Navbar */}
 
     <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
       {/* Left Side */}
       <div className="flex items-center gap-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-        >
-          <FaArrowLeft size={16} />
-          <span className="text-sm">Back</span>
-        </button>
+      
 
         {/* Desktop Nav */}
      
@@ -410,9 +403,9 @@ Gulf Club Collection         </Link>
    
 
 
-    <div className="flex flex-1 px-8 py-10 gap-8">
+    <div className="flex-col flex md:flex-row px-8 py-10 gap-8">
       {/* Sidebar */}
-      <aside className="w-1/4 hidden lg:block">
+      <aside className="md:w-1/4 w-full lg:block">
         <div className="border border-black p-4 rounded">
           <div className="py-5 rounded">
             {/* Header */}

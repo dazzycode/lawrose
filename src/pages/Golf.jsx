@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { FaArrowLeft, FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaPlus, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import {  FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaPlus, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function Golf() {
   const [activeTab, setActiveTab] = useState('All');
- const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const categories = ['All', 'Shirts', 'Skirts', 'Trousers', 'Jackets'];
@@ -26,20 +24,14 @@ export default function Golf() {
       };
     const [collectionOpen, setCollectionOpen] = useState(false);
   return (
-    <div className="min-h-screen w-full  sm:px-6 md:px-3 bg-white text-gray-900">
+    <div className="min-h-screen w-full overflow-x-hidden sm:px-6 md:px-3 bg-white text-gray-900">
       {/* Top navigation */}
     
  
     <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
       {/* Left Side */}
       <div className="flex items-center gap-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-        >
-          <FaArrowLeft size={16} />
-          <span className="text-sm">Back</span>
-        </button>
+       
 
         {/* Desktop Nav */}
        <nav className="hidden md:flex items-center gap-4 text-sm relative">
@@ -207,13 +199,13 @@ export default function Golf() {
           <div className="absolute inset-0 bg-black/50 flex items-center">
             <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
               <div className="max-w-lg">
-                <span className="text-xs text-gray-200 bg-white/20 px-2 py-1 rounded">Golf ClubCollections</span>
+                <span className="text-xs md:text-sm text-gray-200 bg-white/20 px-2 py-2 rounded">Golf Club Collections</span>
                 <h1 className="text-white text-3xl md:text-4xl font-bold mt-2">Bloom & Breeze</h1>
                 <p className="mt-3 text-white/90">
                   Embrace the warmth of spring with our latest collection featuring lightweight fabrics,
                   vibrant colors, and effortless silhouettes.
                 </p>
-                <button className="mt-4 px-4 py-2 bg-white text-black rounded">Shop collection</button>
+               <Link to="/continue"> <button className="mt-4 px-4 py-2 bg-white text-black rounded">Shop collection</button></Link>
               </div>
               <div className="w-full mx-10 md:w-1/2">
                 <img src="/collection4.png" alt="Bloom & Breeze" className="rounded-lg md:h-96 h-48 " />
@@ -296,14 +288,14 @@ export default function Golf() {
                        </div>
                
                        {/* Bottom section: name + price + plus button */}
-                       <div className="p-3 flex items-center justify-between">
+                       <div className="p-3 flex  justify-between">
                          <div>
-              <p className="mt-2 text-sm font-medium">{product.name}</p>
-              <p className="text-sm text-gray-500">{product.price}</p>
+              <p className="mt-2 text-xs md:text-sm font-medium">{product.name}</p>
+              <p className=" text-xs md:text-sm text-left text-gray-500">{product.price}</p>
                          </div>
-                         <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
+                        <Link to="/explore"> <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
                            <FaPlus size={14} />
-                         </button>
+                         </button></Link>
                        </div>             </div>
           ))}
         </div>
@@ -312,7 +304,7 @@ export default function Golf() {
       {/* Explore other collections */}
       <div className="text-center my-12">
         <h3 className="text-lg font-semibold">Explore other collections</h3>
-        <button className="mt-4 px-6 py-2 bg-black text-white rounded-full">View all collections</button>
+      <Link to="/collection">  <button className="mt-4 px-6 py-2 bg-black text-white rounded-full">View all collections</button></Link>
       </div>
 
       {/* Footer */}

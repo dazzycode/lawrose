@@ -9,7 +9,7 @@ export default function SignupPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen overflow-x-hidden flex">
       {/* Left Image Section */}
       <div
         className="hidden md:block md:w-1/2 bg-cover bg-center"
@@ -32,13 +32,13 @@ export default function SignupPage() {
         {/* Form Content */}
         <div className="max-w-sm w-full">
           <h2 className="text-2xl font-semibold mb-1">Account Signup</h2>
-          <p className="text-sm text-gray-500 mb-8">
+          <p className="text-xs md:text-sm text-gray-500 mb-8">
             Become a member and enjoy exclusive promotions.
           </p>
 
          <form className="space-y-4">
   <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1">
+    <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
       Full Name
     </label>
     <input
@@ -48,7 +48,7 @@ export default function SignupPage() {
   </div>
 
   <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1">
+    <label className="block text-xs md:text-sm  font-medium text-gray-700 mb-1">
       Email Address
     </label>
     <input
@@ -58,7 +58,7 @@ export default function SignupPage() {
   </div>
 
   <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1">
+    <label className="block text-xs md:text-sm  font-medium text-gray-700 mb-1">
       Password
     </label>
     <div className="relative">
@@ -79,7 +79,7 @@ export default function SignupPage() {
   
 
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
         Confirm Password
       </label>
       <div className="relative">
@@ -105,7 +105,7 @@ export default function SignupPage() {
   Continue
 </button>
 
-<p className="text-black text-sm text-center mt-2">
+<p className="text-black text-xs md:text-sm text-center mt-2">
   Already have an account?{" "}
   <a href="/login" className="underline  text-[#B4BD00] hover:text-black">
     Login
@@ -118,7 +118,7 @@ export default function SignupPage() {
           {/* Google Signup */}
           <button className="flex items-center justify-center w-full py-8 rounded-md hover:bg-gray-50 transition mt-6">
             <FcGoogle size={20} className="mr-2" />
-            <span className="text-sm font-medium">Sign up with Google</span>
+            <span className="text-xs md:text-sm  font-medium">Sign up with Google</span>
           </button>
         </div>
       </div>

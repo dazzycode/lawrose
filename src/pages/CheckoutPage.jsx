@@ -104,19 +104,12 @@ const total = subtotal + shippingCost;
  // Product count & total quantity
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   return (
-     <div className="min-h-screen w-full  px-2 sm:px-6 md:px-3 bg-white text-gray-900">
+     <div className="min-h-screen w-full overflow-x-hidden px-2 sm:px-6 md:px-3 bg-white text-gray-900">
       {/* Top navigation */}
      <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
                    {/* Left Side */}
                    <div className="flex items-center gap-4">
-                     <button
-                       onClick={() => navigate(-1)}
-                       className="flex items-center gap-1 text-black hover:text-gray-600 transition-colors"
-                     >
-                       <FaArrowLeft size={16} />
-                       <span className="text-sm">Back</span>
-                     </button>
-             
+                    
                      {/* Desktop Nav */}
                     <nav className="hidden md:flex items-center gap-4 text-sm relative">
                          <Link to="/men" className="hover:underline">Men</Link>

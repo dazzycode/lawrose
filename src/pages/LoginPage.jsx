@@ -9,7 +9,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen overflow-x-hidden scroll-smooth flex">
       {/* Left Image Section */}
       <div
         className="hidden md:block md:w-1/2 bg-cover bg-center"
