@@ -28,167 +28,103 @@ export default function Golf() {
       {/* Top navigation */}
     
  
-    <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
-      {/* Left Side */}
-      <div className="flex items-center gap-4">
-       
+   <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
+  {/* Left Side with Logo + Nav */}
+  <div className="flex items-center gap-6">
+    {/* Logo */}
+    <Link to="/">
+      <img
+        src="/logo.png"
+        alt="Logo"
+        className="h-8 w-auto"
+      />
+    </Link>
 
-        {/* Desktop Nav */}
-       <nav className="hidden md:flex items-center gap-4 text-sm relative">
-                                                                            <Link to="/men" className="hover:underline">Men</Link>
-                                                                            <Link to="/women" className="hover:underline">Women</Link>
-                                                                      
-                                                                            {/* Collection Dropdown */}
-                                                                            <div className="relative">
-                                                                              <button
-                                                                                onClick={() => setOpenDropdown(!openDropdown)}
-                                                                                className="hover:underline flex items-center gap-1"
-                                                                              >
-                                                                                Collection
-                                                                                <svg
-                                                                                  className="w-3 h-3 mt-[2px]"
-                                                                                  fill="none"
-                                                                                  stroke="currentColor"
-                                                                                  viewBox="0 0 24 24"
-                                                                                >
-                                                                                  <path
-                                                                                    strokeLinecap="round"
-                                                                                    strokeLinejoin="round"
-                                                                                    strokeWidth="2"
-                                                                                    d="M19 9l-7 7-7-7"
-                                                                                  />
-                                                                                </svg>
-                                                                              </button>
-                                                                      {openDropdown && (
-                                                                        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
-                                                                          {[
-                                                                            { name: "Spring-Summer (25)", path: "/summer" },
-                                                                            { name: "Autumm-Winter (25)", path: "/winter" },
-                                                                            { name: "Core Collections", path: "/core" },
-                                                                            { name: "Golf Club Collection", path: "/golf" }
-                                                                          ].map((col) => (
-                                                                            <Link
-                                                                              key={col.name}
-                                                                              to={col.path}
-                                                                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                                              onClick={handleMenuClick}
-                                                                            >
-                                                                              {col.name}
-                                                                            </Link>
-                                                                          ))}
-                                                                        </div>
-                                                                      )}
-                                                                      
-                                                                      
-                                                                            </div>
-                                                                      
-                                                                            <Link to="/shop" className="hover:underline">Shop</Link>
-                                                                          </nav>
-      </div>
+    {/* Desktop Nav */}
+    <nav className="hidden md:flex items-center gap-4 text-sm relative">
+      <Link to="/men" className="hover:underline">Men</Link>
+      <Link to="/women" className="hover:underline">Women</Link>
 
-      {/* Right Side */}
-      <div className="flex items-center gap-3 text-gray-700">
-        {/* Desktop Icons */}
-        <div className="hidden md:flex items-center gap-3">
-          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-            <FaSearch size={16} />
-          </button>
-          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-            <FaHeart size={16} />
-          </button>
-          <Link to="/cart"> <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-                     <FaShoppingCart size={16} />
-                   </button></Link>
-          <button>
-            <img
-              src="/model.png"
-              alt="user"
-              className="w-6 h-6 rounded-full object-cover"
-            />
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
+      {/* Collection Dropdown */}
+      <div className="relative">
         <button
-          className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setOpenDropdown(!openDropdown)}
+          className="hover:underline flex items-center gap-1"
         >
-          {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+          Collection
+          <svg
+            className="w-3 h-3 mt-[2px]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
         </button>
+        {openDropdown && (
+          <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
+            {[
+              { name: "Spring-Summer (25)", path: "/summer" },
+              { name: "Autumm-Winter (25)", path: "/winter" },
+              { name: "Core Collections", path: "/core" },
+              { name: "Golf Club Collection", path: "/golf" }
+            ].map((col) => (
+              <Link
+                key={col.name}
+                to={col.path}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={handleMenuClick}
+              >
+                {col.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Mobile Menu */}
-       {menuOpen && (
-                                           <div className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 flex flex-col items-start p-4 md:hidden">
-                                             <Link to="/men" className="py-2 w-full hover:underline" onClick={() => setMenuOpen(false)}>Men</Link>
-                                             <Link to="/women" className="py-2 w-full hover:underline" onClick={() => setMenuOpen(false)}>Women</Link>
-                                         
-                                             {/* Collection Dropdown */}
-                                             <div className="w-full">
-                                               <button
-                                                 onClick={() => setCollectionOpen(!collectionOpen)}
-                                                 className="py-2 w-full flex justify-between items-center hover:underline"
-                                               >
-                                                 Collection
-                                                 <span>{collectionOpen ? "▲" : "▼"}</span>
-                                               </button>
-                                               {collectionOpen && (
-                                                 <div className="pl-4 flex flex-col">
-                                                   <Link
-                                                     to="/summer"
-                                                     className="py-1 hover:underline"
-                                                     onClick={() => setMenuOpen(false)}
-                                                   >
-                                                    Spring-Summer (25)
-                                                   </Link>
-                                                   <Link
-                                                     to="/winter"
-                                                     className="py-1 hover:underline"
-                                                     onClick={() => setMenuOpen(false)}
-                                                   >
-                                                     Autumm-Winter (25)
-                                                   </Link>
-                                                   <Link
-                                                     to="/core"
-                                                     className="py-1 hover:underline"
-                                                     onClick={() => setMenuOpen(false)}
-                                                   >
-                                         Core Collections          </Link>
-                                          <Link
-                                                     to="/gulf"
-                                                     className="py-1 hover:underline"
-                                                     onClick={() => setMenuOpen(false)}
-                                                   >
-                                         Gulf Club Collection         </Link>
-                                                 </div>
-                                               )}
-                                             </div>
-                                         
-                                             <Link to="/shop" className="py-2 w-full hover:underline" onClick={() => setMenuOpen(false)}>Shop</Link>
-                                         
-                                             {/* Icons */}
-                                             <div className="flex gap-3 mt-4">
-                                               <button className="p-2 rounded-full border border-gray-300">
-                                                 <FaSearch size={16} />
-                                               </button>
-                                               <button className="p-2 rounded-full border border-gray-300">
-                                                 <FaHeart size={16} />
-                                               </button>
-                                               <Link to="/cart"> <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-                     <FaShoppingCart size={16} />
-                   </button></Link>
-                                               <button>
-                                                 <img
-                                                   src="/model.png"
-                                                   alt="user"
-                                                   className="w-8 h-8 rounded-full object-cover"
-                                                 />
-                                               </button>
-                                             </div>
-                                           </div>
-                                         )}
-    </header>
- 
+      <Link to="/shop" className="hover:underline">Shop</Link>
+    </nav>
+  </div>
+
+  {/* Right Side Icons */}
+  <div className="flex items-center gap-3 text-gray-700">
+    {/* Desktop Icons */}
+    <div className="hidden md:flex items-center gap-3">
+      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+        <FaSearch size={16} />
+      </button>
+      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+        <FaHeart size={16} />
+      </button>
+      <Link to="/cart">
+        <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+          <FaShoppingCart size={16} />
+        </button>
+      </Link>
+      <button>
+        <img
+          src="/model.png"
+          alt="user"
+          className="w-6 h-6 rounded-full object-cover"
+        />
+      </button>
+    </div>
+
+    {/* Mobile Menu Toggle */}
+    <button
+      className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+    </button>
+  </div>
+</header>
+
 
       {/* Hero section */}
       <section className="relative">
