@@ -11,14 +11,18 @@ export default function ProductPage() {
 
   ];
           const [menuOpen, setMenuOpen] = useState(false);
-  
+    const [selectedColor, setSelectedColor] = useState(null);
+
+  const colors = ["#000", "#999", "#ccc", "#fff", "#5af0deff", "#87ceeb"];
+
 const products = new Array(8).fill({
   name: "Embroidered Semi-collar Shirt",
   price: "₦15,000",
   image: "/shirt.png",
 });
  const [openDropdown, setOpenDropdown] = useState(false);
-    
+      const [selectedSize, setSelectedSize] = useState(null);
+  const sizes = ["XS", "S", "M", "L", "XL"];
       const handleMenuClick = () => {
         setOpenDropdown(false);
       };
@@ -27,102 +31,125 @@ const products = new Array(8).fill({
   return (
     <div className="font-libre overflow-x-hidden  w-full px-4 sm:px-6 md:px-3 bg-white text-black">
       {/* Top Navbar */}
-<header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
-  {/* Left Side with Logo + Nav */}
-  <div className="flex items-center gap-6">
-    {/* Logo */}
-    <Link to="/">
-      <img
-        src="/logo.png"
-        alt="Logo"
-        className="h-8 w-auto"
-      />
-    </Link>
+ <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
+      {/* Left Side with Logo */}
+      <div className="flex items-center gap-6">
+        <Link to="/">
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+        </Link>
 
-    {/* Desktop Nav */}
-    <nav className="hidden md:flex items-center gap-4 text-sm relative">
-      <Link to="/men" className="hover:underline">Men</Link>
-      <Link to="/women" className="hover:underline">Women</Link>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-4 text-sm relative">
+          <Link to="/men" className="hover:underline">Men</Link>
+          <Link to="/women" className="hover:underline">Women</Link>
 
-      {/* Collection Dropdown */}
-      <div className="relative">
-        <button
-          onClick={() => setOpenDropdown(!openDropdown)}
-          className="hover:underline flex items-center gap-1"
-        >
-          Collection
-          <svg
-            className="w-3 h-3 mt-[2px]"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
-        {openDropdown && (
-          <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
-            {[
-              { name: "Spring-Summer (25)", path: "/summer" },
-              { name: "Autumm-Winter (25)", path: "/winter" },
-              { name: "Core Collections", path: "/core" },
-              { name: "Golf Club Collection", path: "/golf" }
-            ].map((col) => (
-              <Link
-                key={col.name}
-                to={col.path}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                onClick={handleMenuClick}
-              >
-                {col.name}
-              </Link>
-            ))}
+          {/* Collection Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(!openDropdown)}
+              className="hover:underline flex items-center gap-1"
+            >
+              Collection
+              <svg className="w-3 h-3 mt-[2px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openDropdown && (
+              <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
+                {[
+                  { name: "Spring-Summer (25)", path: "/summer" },
+                  { name: "Autumm-Winter (25)", path: "/winter" },
+                  { name: "Core Collections", path: "/core" },
+                  { name: "Golf Club Collection", path: "/golf" }
+                ].map((col) => (
+                  <Link
+                    key={col.name}
+                    to={col.path}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={handleMenuClick}
+                  >
+                    {col.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+
+          <Link to="/shop" className="hover:underline">Shop</Link>
+        </nav>
       </div>
 
-      <Link to="/shop" className="hover:underline">Shop</Link>
-    </nav>
-  </div>
+      {/* Right Side Icons */}
+      <div className="flex items-center gap-3 text-gray-700">
+        {/* Desktop Icons */}
+        <div className="hidden md:flex items-center gap-3">
+          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+            <FaSearch size={16} />
+          </button>
+          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+            <FaHeart size={16} />
+          </button>
+          <Link to="/cart">
+            <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+              <FaShoppingCart size={16} />
+            </button>
+          </Link>
+          <button>
+            <img src="/model.png" alt="user" className="w-6 h-6 rounded-full object-cover" />
+          </button>
+        </div>
 
-  {/* Right Side Icons */}
-  <div className="flex items-center gap-3 text-gray-700">
-    {/* Desktop Icons */}
-    <div className="hidden md:flex items-center gap-3">
-      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-        <FaSearch size={16} />
-      </button>
-      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-        <FaHeart size={16} />
-      </button>
-      <Link to="/cart">
-        <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-          <FaShoppingCart size={16} />
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
         </button>
-      </Link>
-      <button>
-        <img
-          src="/model.png"
-          alt="user"
-          className="w-6 h-6 rounded-full object-cover"
-        />
-      </button>
-    </div>
+      </div>
 
-    {/* Mobile Menu Toggle */}
-    <button
-      className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
-      onClick={() => setMenuOpen(!menuOpen)}
-    >
-      {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
-    </button>
-  </div>
-</header>
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <nav className="absolute top-full left-0 w-full bg-white border-t border-gray-200 flex flex-col p-4 md:hidden shadow-lg">
+          <Link to="/men" className="py-2 border-b" onClick={handleMenuClick}>Men</Link>
+          <Link to="/women" className="py-2 border-b" onClick={handleMenuClick}>Women</Link>
+
+          {/* Collection Dropdown for Mobile */}
+          <div>
+            <button
+              onClick={() => setOpenDropdown(!openDropdown)}
+              className="w-full flex justify-between items-center py-2 border-b"
+            >
+              Collection
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={openDropdown ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+              </svg>
+            </button>
+            {openDropdown && (
+              <div className="flex flex-col pl-4">
+                {[
+                  { name: "Spring-Summer (25)", path: "/summer" },
+                  { name: "Autumm-Winter (25)", path: "/winter" },
+                  { name: "Core Collections", path: "/core" },
+                  { name: "Golf Club Collection", path: "/golf" }
+                ].map((col) => (
+                  <Link
+                    key={col.name}
+                    to={col.path}
+                    className="py-2 border-b text-gray-700 hover:bg-gray-100"
+                    onClick={handleMenuClick}
+                  >
+                    {col.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link to="/shop" className="py-2 border-b" onClick={handleMenuClick}>Shop</Link>
+        </nav>
+      )}
+    </header>
 
       {/* Product Section */}
 
@@ -179,38 +206,58 @@ const products = new Array(8).fill({
       </p>
 
       {/* Color options */}
-      <div>
-        <p className="mt-5 text-[#0000008C] text-xs mb-1">Color</p>
-        <div className="flex gap-2 flex-wrap">
-          {["#000", "#999", "#ccc", "#fff", "#5af0deff", "#87ceeb"].map(
-            (color, i) => (
-              <div
-                key={i}
-                className="w-12 h-10 border rounded"
-                style={{ backgroundColor: color }}
-              ></div>
-            )
-          )}
-        </div>
+
+
+    <div>
+      <p className="mt-5 text-[#0000008C] text-xs mb-1">Color</p>
+      <div className="flex gap-2 flex-wrap">
+        {colors.map((color, i) => (
+          <div
+            key={i}
+            onClick={() => setSelectedColor(color)}
+            className={`w-12 h-10 border rounded cursor-pointer transition-all duration-200 ${
+              selectedColor === color
+                ? "ring-2 ring-offset-2 ring-black"
+                : "hover:scale-105"
+            }`}
+            style={{ backgroundColor: color }}
+          ></div>
+        ))}
       </div>
 
-      {/* Size options */}
-      <div>
-        <p className="mt-4 text-[#0000008C] text-xs mb-1">Size</p>
-        <div className="flex gap-2 flex-wrap">
-          {["XS", "S", "M", "L", "XL"].map((size) => (
-            <button
-              key={size}
-              className="border px-6 py-3 text-sm rounded hover:border-black"
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-        <p className="text-[#0000008C] text-xs mt-4">
-          FIND YOUR SIZE | MEASUREMENT GUIDE
+      {/* Optional: show selected color value */}
+      {selectedColor && (
+        <p className="mt-2 text-sm">
+          Selected: <span style={{ color: selectedColor }}>{selectedColor}</span>
         </p>
+      )}
+    </div>
+ 
+
+      {/* Size options */}
+   
+
+    <div>
+      <p className="mt-4 text-[#0000008C] text-xs mb-1">Size</p>
+      <div className="flex gap-2 flex-wrap">
+        {sizes.map((size) => (
+          <button
+            key={size}
+            onClick={() => setSelectedSize(size)}
+            className={`border px-6 py-3 text-sm rounded transition-all duration-200 
+              ${selectedSize === size ? "bg-black text-white border-black" : "hover:border-black"}`}
+          >
+            {size}
+          </button>
+        ))}
       </div>
+
+      <p className="text-[#0000008C] text-xs mt-4">
+        FIND YOUR SIZE | MEASUREMENT GUIDE
+      </p>
+    </div>
+  
+
 
       {/* Buttons */}
       <div className="flex items-center gap-4 flex-wrap mt-4">

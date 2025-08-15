@@ -25,103 +25,125 @@ export default function HomePage() {
   return (
     <div className="font-libre overflow-x-hidden w-full bg-white text-black">
 
-<header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
-  {/* Left Side with Logo + Nav */}
-  <div className="flex items-center gap-6">
-    {/* Logo */}
-    <Link to="/">
-      <img
-        src="/logo.png"
-        alt="Logo"
-        className="h-8 w-auto"
-      />
-    </Link>
+ <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
+      {/* Left Side with Logo */}
+      <div className="flex items-center gap-6">
+        <Link to="/">
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+        </Link>
 
-    {/* Desktop Nav */}
-    <nav className="hidden md:flex items-center gap-4 text-sm relative">
-      <Link to="/men" className="hover:underline">Men</Link>
-      <Link to="/women" className="hover:underline">Women</Link>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-4 text-sm relative">
+          <Link to="/men" className="hover:underline">Men</Link>
+          <Link to="/women" className="hover:underline">Women</Link>
 
-      {/* Collection Dropdown */}
-      <div className="relative">
-        <button
-          onClick={() => setOpenDropdown(!openDropdown)}
-          className="hover:underline flex items-center gap-1"
-        >
-          Collection
-          <svg
-            className="w-3 h-3 mt-[2px]"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
-        {openDropdown && (
-          <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
-            {[
-              { name: "Spring-Summer (25)", path: "/summer" },
-              { name: "Autumm-Winter (25)", path: "/winter" },
-              { name: "Core Collections", path: "/core" },
-              { name: "Golf Club Collection", path: "/golf" }
-            ].map((col) => (
-              <Link
-                key={col.name}
-                to={col.path}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                onClick={handleMenuClick}
-              >
-                {col.name}
-              </Link>
-            ))}
+          {/* Collection Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(!openDropdown)}
+              className="hover:underline flex items-center gap-1"
+            >
+              Collection
+              <svg className="w-3 h-3 mt-[2px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openDropdown && (
+              <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
+                {[
+                  { name: "Spring-Summer (25)", path: "/summer" },
+                  { name: "Autumm-Winter (25)", path: "/winter" },
+                  { name: "Core Collections", path: "/core" },
+                  { name: "Golf Club Collection", path: "/golf" }
+                ].map((col) => (
+                  <Link
+                    key={col.name}
+                    to={col.path}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={handleMenuClick}
+                  >
+                    {col.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+
+          <Link to="/shop" className="hover:underline">Shop</Link>
+        </nav>
       </div>
 
-      <Link to="/shop" className="hover:underline">Shop</Link>
-    </nav>
-  </div>
+      {/* Right Side Icons */}
+      <div className="flex items-center gap-3 text-gray-700">
+        {/* Desktop Icons */}
+        <div className="hidden md:flex items-center gap-3">
+          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+            <FaSearch size={16} />
+          </button>
+          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+            <FaHeart size={16} />
+          </button>
+          <Link to="/cart">
+            <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
+              <FaShoppingCart size={16} />
+            </button>
+          </Link>
+          <button>
+            <img src="/model.png" alt="user" className="w-6 h-6 rounded-full object-cover" />
+          </button>
+        </div>
 
-  {/* Right Side Icons */}
-  <div className="flex items-center gap-3 text-gray-700">
-    {/* Desktop Icons */}
-    <div className="hidden md:flex items-center gap-3">
-      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-        <FaSearch size={16} />
-      </button>
-      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-        <FaHeart size={16} />
-      </button>
-      <Link to="/cart">
-        <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
-          <FaShoppingCart size={16} />
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
         </button>
-      </Link>
-      <button>
-        <img
-          src="/model.png"
-          alt="user"
-          className="w-6 h-6 rounded-full object-cover"
-        />
-      </button>
-    </div>
+      </div>
 
-    {/* Mobile Menu Toggle */}
-    <button
-      className="md:hidden p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"
-      onClick={() => setMenuOpen(!menuOpen)}
-    >
-      {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
-    </button>
-  </div>
-</header>
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <nav className="absolute top-full left-0 w-full bg-white border-t border-gray-200 flex flex-col p-4 md:hidden shadow-lg">
+          <Link to="/men" className="py-2 border-b" onClick={handleMenuClick}>Men</Link>
+          <Link to="/women" className="py-2 border-b" onClick={handleMenuClick}>Women</Link>
 
+          {/* Collection Dropdown for Mobile */}
+          <div>
+            <button
+              onClick={() => setOpenDropdown(!openDropdown)}
+              className="w-full flex justify-between items-center py-2 border-b"
+            >
+              Collection
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={openDropdown ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+              </svg>
+            </button>
+            {openDropdown && (
+              <div className="flex flex-col pl-4">
+                {[
+                  { name: "Spring-Summer (25)", path: "/summer" },
+                  { name: "Autumm-Winter (25)", path: "/winter" },
+                  { name: "Core Collections", path: "/core" },
+                  { name: "Golf Club Collection", path: "/golf" }
+                ].map((col) => (
+                  <Link
+                    key={col.name}
+                    to={col.path}
+                    className="py-2 border-b text-gray-700 hover:bg-gray-100"
+                    onClick={handleMenuClick}
+                  >
+                    {col.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link to="/shop" className="py-2 border-b" onClick={handleMenuClick}>Shop</Link>
+        </nav>
+      )}
+    </header>
 
 
       {/* Header Hero Image */}
