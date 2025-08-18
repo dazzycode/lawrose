@@ -150,29 +150,30 @@ export default function Summer() {
 
 
       {/* Hero section */}
-      <section className="relative">
-        <div
-          className="h-[28rem] w-full bg-center bg-cover"
-          style={{ backgroundImage: "url('/collectionbg.png')" }}
-        >
-          <div className="absolute inset-0 bg-black/50 flex items-center">
-            <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
-              <div className="max-w-lg">
-                <span className="text-xs md:text-sm text-gray-200 bg-white/20 px-2 py-2 rounded">Spring Summer 2025</span>
-                <h1 className="text-white text-3xl md:text-4xl font-bold mt-2">Bloom & Breeze</h1>
-                <p className="mt-3 text-white/90">
-                  Embrace the warmth of spring with our latest collection featuring lightweight fabrics,
-                  vibrant colors, and effortless silhouettes.
-                </p>
-                <Link to="/continue"><button className="mt-4 px-4 py-2 bg-white text-black rounded">Shop collection</button></Link>
-              </div>
-              <div className="w-full mx-10 md:w-1/2">
-                <img src="/collection2.png" alt="Bloom & Breeze" className="rounded-lg md:h-96 h-48 " />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+       <section className="relative">
+                   <div
+                     className="h-[28rem] w-full bg-center bg-cover"
+                     style={{ backgroundImage: "url('/collectionbg.png')" }}
+                   >
+                     <div className="absolute inset-0 bg-black/50 flex items-center">
+                       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+                         <div className="max-w-lg">
+                           <span className="text-xs md:text-sm text-gray-200 bg-white/20 px-2 py-2 rounded">Spring Summer 2025</span>
+                           <h1 className="text-white text-3xl md:text-4xl font-bold mt-2">Bloom & Breeze</h1>
+                           <p className="mt-3 text-white/90">
+                             Embrace the warmth of spring with our latest collection featuring lightweight fabrics,
+                             vibrant colors, and effortless silhouettes.
+                           </p>
+                           <Link to="/continue"><button className="mt-4 px-4 py-2 bg-white text-black rounded">Shop collection</button></Link>
+                         </div>
+                         <div className="w-full mx-10 md:w-1/2">
+                           <img src="/collection3.png" alt="Bloom & Breeze" className="rounded-lg md:h-96 h-48 " />
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </section>
+           
 
       {/* Story and Inspiration */}
   <section className="max-w-5xl mx-auto px-4 py-12">
@@ -213,22 +214,22 @@ export default function Summer() {
 
       {/* Collection pieces */}
       <section className="max-w-7xl mx-auto px-4 py-8">
-       <div className="flex items-center justify-between mb-6">
+     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
   {/* Left side - Title */}
   <h2 className="text-lg font-bold">
     Collection pieces ({filteredProducts.length})
   </h2>
 
   {/* Right side - Tabs */}
-  <div className="flex space-x-2">
-    {categories.map(cat => (
+  <div className="flex flex-wrap gap-2">
+    {categories.map((cat) => (
       <button
         key={cat}
         onClick={() => setActiveTab(cat)}
         className={`px-4 py-1 rounded-full text-sm ${
           activeTab === cat
-            ? 'bg-black text-white'
-            : 'bg-gray-100 text-gray-700'
+            ? "bg-black text-white"
+            : "bg-gray-100 text-gray-700"
         }`}
       >
         {cat}
