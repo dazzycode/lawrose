@@ -1,14 +1,11 @@
-
 // src/AllRoutes.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import ProductPage from "../pages/ProductPage";
 import Cart from "../pages/Cart";
 import CheckoutPage from "../pages/CheckoutPage";
 import Women from "../pages/Women";
 import Men from "../pages/Men";
-import Shop from "../pages/Shop";
 import SignupPage from "../pages/SignupPage";
 import Collection from "../pages/Collection";
 import Winter from "../pages/Winter";
@@ -16,27 +13,32 @@ import Core from "../pages/Core";
 import Golf from "../pages/Golf";
 import Summer from "../pages/Summer";
 import LoginPage from "../pages/LoginPage";
+import ProductPage from "../pages/ProductPage";
+import Shop from "../pages/Shop";
 
-
-
-const AllRoutes = () => {
+const AllRoutes = ({ user }) => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage/>} />
-              <Route path="/explore" element={<ProductPage/>} />
-                   <Route path="/cart" element={<Cart/>} />
-                   <Route path="/continue" element={<CheckoutPage/>} />
-                   <Route path="/men" element={<Men/>} />
-                   <Route path="/shop" element={<Shop/>} />
-S                   <Route path="/signup" element={<SignupPage/>} />
-S                   <Route path="/collection" element={<Collection/>} />
-S                   <Route path="/winter" element={<Winter/>} />
-S                   <Route path="/core" element={<Core/>} />
-S                   <Route path="/golf" element={<Golf/>} />
-S                   <Route path="/summer" element={<Summer/>} />
-S                   <Route path="/women" element={<Women/>} />
-S                   <Route path="/login" element={<LoginPage/>} />
+      <Route path="/" element={<HomePage />} />
+      
+      {/* Product details page expects productId */}
+      <Route path="/explore/:productId" element={<ProductPage user={user} />} />
+      
+      {/* Optional: redirect /explore without id */}
+      <Route path="/explore" element={<Navigate to="/shop" />} />
 
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/continue" element={<CheckoutPage />} />
+      <Route path="/men" element={<Men />} />
+      <Route path="/shop" element={<Shop user={user} />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/collection" element={<Collection />} />
+      <Route path="/winter" element={<Winter />} />
+      <Route path="/core" element={<Core />} />
+      <Route path="/golf" element={<Golf />} />
+      <Route path="/summer" element={<Summer />} />
+      <Route path="/women" element={<Women />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 };

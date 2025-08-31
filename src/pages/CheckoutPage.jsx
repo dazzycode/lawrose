@@ -224,17 +224,17 @@ const total = subtotal + shippingCost;
          )}
        </header>
 
-   <div className="w-full mx-5 p-4">
+   <div className="w-full p-4 sm:p-6">
   {/* Header */}
   <h1 className="text-xl font-bold mb-6 uppercase">Checkout</h1>
 
   {/* Layout */}
-  <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-16">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 lg:gap-16">
     
-    {/* Left Column - Tabs in bordered container */}
-    <div className="border max-w-6xl p-4 bg-white">
+    {/* Left Column - Tabs */}
+    <div className="border p-4 sm:p-6 bg-white w-full">
       {/* Tabs */}
-      <div className="flex space-x-6 pb-2 mb-8 border-b">
+      <div className="flex flex-wrap gap-4 pb-2 mb-6 border-b">
         {["information", "shipping", "payment"].map((tab) => (
           <button
             key={tab}
@@ -253,33 +253,25 @@ const total = subtotal + shippingCost;
         {activeTab === "information" && (
           <div>
             <h2 className="text-sm font-semibold mb-4">Contact Info</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input className="border text-xs p-2 w-full" placeholder="First Name" />
               <input className="border text-xs p-2 w-full" placeholder="Last Name" />
             </div>
-            <input className="border text-xs  p-2 w-full mt-4" placeholder="Email" />
+            <input className="border text-xs p-2 w-full mt-4" placeholder="Email" />
             <input className="border text-xs p-2 w-full mt-4" placeholder="Phone" />
 
-            <h2 className="text-sm font-semibold mt-6 mb-4">
-              Shipping Address
-            </h2>
+            <h2 className="text-sm font-semibold mt-6 mb-4">Shipping Address</h2>
             <input className="border text-xs p-2 w-full" placeholder="Country" />
-            <input
-              className="border p-2 text-xs w-full mt-4"
-              placeholder="State / Region"
-            />
+            <input className="border p-2 text-xs w-full mt-4" placeholder="State / Region" />
             <input className="border text-xs p-2 w-full mt-4" placeholder="Address" />
             <div className="grid grid-cols-2 gap-4 mt-4">
-              <input className="border text-xs  p-2 w-full" placeholder="City" />
-              <input
-                className="border text-xs  p-2 w-full"
-                placeholder="Postal Code"
-              />
+              <input className="border text-xs p-2 w-full" placeholder="City" />
+              <input className="border text-xs p-2 w-full" placeholder="Postal Code" />
             </div>
 
             <button
               onClick={() => setActiveTab("payment")}
-              className="mt-6 bg-gray-800 text-white py-3 text-sm px-6 flex items-center justify-center"
+              className="mt-6 bg-gray-800 text-white py-3 text-sm px-6 w-full sm:w-auto flex items-center justify-center"
             >
               Payment →
             </button>
@@ -290,12 +282,12 @@ const total = subtotal + shippingCost;
           <div>
             <h2 className="text-sm font-semibold mb-4">Shipping Option</h2>
             <div className="space-y-4">
-              <label className="flex items-center justify-between border p-4">
+              <label className="flex items-center justify-between border p-4 rounded-md">
                 <span className="text-xs">DHL Express</span>
-                <span className="font-bold  text-xs">₦24,000</span>
+                <span className="font-bold text-xs">₦24,000</span>
                 <input type="radio" name="shipping" />
               </label>
-              <label className="flex items-center justify-between border p-4">
+              <label className="flex items-center justify-between border p-4 rounded-md">
                 <span className="text-xs">FedEx International Priority</span>
                 <span className="font-bold text-xs">₦54,000</span>
                 <input type="radio" name="shipping" />
@@ -304,195 +296,185 @@ const total = subtotal + shippingCost;
           </div>
         )}
 
-     {activeTab === "payment" && (
-  <div className="space-y-4">
-    <p className="text-sm">Select preferred payment method</p>
-    {methods.map((method) => (
-      <label
-        key={method.id}
-        className="flex items-center justify-between border rounded-lg p-4 cursor-pointer hover:border-black transition"
-      >
-        {/* Left Side */}
-        <div className="flex items-center space-x-3">
-          <input
-            type="radio"
-            name="payment"
-            value={method.id}
-            checked={selected === method.id}
-            onChange={() => setSelected(method.id)}
-            className="accent-black w-4 h-4"
-          />
-          <span className="text-sm">{method.label}</span>
-        </div>
+        {activeTab === "payment" && (
+          <div className="space-y-4">
+            <p className="text-sm">Select preferred payment method</p>
+            {methods.map((method) => (
+              <label
+                key={method.id}
+                className="flex items-center justify-between border rounded-lg p-4 cursor-pointer hover:border-black transition"
+              >
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={method.id}
+                    checked={selected === method.id}
+                    onChange={() => setSelected(method.id)}
+                    className="accent-black w-4 h-4"
+                  />
+                  <span className="text-sm">{method.label}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  {method.logo}
+                  <FaChevronRight className="text-gray-400" />
+                </div>
+              </label>
+            ))}
 
-        {/* Right Side */}
-        <div className="flex items-center space-x-3">
-          {method.logo}
-          <FaChevronRight className="text-gray-400" />
-        </div>
-      </label>
-    ))}
-
-    {/* Button under payment methods */}
-    
-    {selected ? (
-  <Link
-    to="/signup"
-    className="mt-6 bg-black hover:bg-gray-900 w-[200px] text-white py-2 text-sm flex items-center justify-center"
-  >
-    Complete Payment →
-  </Link>
-) : (
-  <button
-    disabled
-    className="mt-6 bg-gray-400 w-[200px] text-white py-2 text-sm flex items-center justify-center cursor-not-allowed"
-  >
-    Complete Payment →
-  </button>
-)}
-
-  </div>
-)}
-
-        
+            {selected ? (
+              <Link
+                to="/signup"
+                className="mt-6 bg-black hover:bg-gray-900 w-full sm:w-[200px] text-white py-2 text-sm flex items-center justify-center"
+              >
+                Complete Payment →
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="mt-6 bg-gray-400 w-full sm:w-[200px] text-white py-2 text-sm flex items-center justify-center cursor-not-allowed"
+              >
+                Complete Payment →
+              </button>
+            )}
+          </div>
+        )}
       </div>
-      
     </div>
 
     {/* Right Column - Order Summary */}
-  <div className="p-4 sm:p-6 lg:p-8 border rounded-md max-w-full md:max-w-md mx-auto md:mx-0">
- <div className="flex justify-between items-center pb-2 mb-4">
-              <h2 className="font-semibold text-lg">YOUR ORDER</h2>
-              <span className="text-sm text-blue-900">
-                ( {totalQuantity} items)
-              </span>
-            </div>      <div className="space-y-4">
-        {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center justify-between py-4 border-b last:border-b-0">
-                <img src={item.image} alt={item.name} className="w-[150px] h-[150px] object-cover" />
-                <div className=" px-4">
-                  <h3 className="font-medium text-xs ">{item.name}</h3>
-                  <p className="text-xs my-5 text-gray-500">{item.color}</p>
-                  <span className="block my-10 text-sm text-blue-900">({item.quantity})</span>
-                </div>
-                <div className="text-right">
-                  <button onClick={() => handleDelete(item.id)} className="text-red-700 mb-20 underline text-sm mt-1">
-                   clear
-                  </button>
-                  <p className="text-sm font-medium">₦{item.price.toLocaleString()}</p>
-                </div>
-              </div>
-            ))}
+    <div className="p-4 sm:p-6 border rounded-md w-full md:max-w-md">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-semibold text-lg">Your Order</h2>
+        <span className="text-sm text-blue-900">({totalQuantity} items)</span>
       </div>
-     <div className="border-t mt-4 mb-8 pt-4 space-y-2">
-  <div className="flex mb-5 justify-between">
-    <span className="text-sm">Subtotal</span>
-    <span className="text-xs">₦{subtotal.toLocaleString()}</span>
-  </div>
-  <div className="flex mt-5 justify-between">
-    <span className="text-sm">Shipping</span>
-    <span className="text-xs">₦{shippingCost.toLocaleString()}</span>
-  </div>
-  <div className="flex border-t justify-between font-bold text-lg">
-    <span className="text-sm">Total</span>
-    <span className="text-xs">₦{total.toLocaleString()}</span>
-  </div>
-</div>
-
+      <div className="space-y-4">
+        {cartItems.map((item) => (
+          <div key={item.id} className="flex items-center justify-between gap-4 py-4 border-b last:border-b-0">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-20 sm:w-24 h-20 sm:h-24 object-cover"
+            />
+            <div className="flex-1">
+              <h3 className="font-medium text-xs">{item.name}</h3>
+              <p className="text-xs my-2 text-gray-500">{item.color}</p>
+              <span className="block text-sm text-blue-900">({item.quantity})</span>
+            </div>
+            <div className="text-right">
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="text-red-700 underline text-xs mb-2"
+              >
+                Clear
+              </button>
+              <p className="text-sm font-medium">₦{item.price.toLocaleString()}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t mt-4 pt-4 space-y-2">
+        <div className="flex justify-between">
+          <span className="text-sm">Subtotal</span>
+          <span className="text-xs">₦{subtotal.toLocaleString()}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-sm">Shipping</span>
+          <span className="text-xs">₦{shippingCost.toLocaleString()}</span>
+        </div>
+        <div className="flex justify-between font-bold text-base">
+          <span>Total</span>
+          <span className="text-xs">₦{total.toLocaleString()}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
  <footer className="bg-[#00071B] text-white py-10 px-6 md:px-16 text-sm">
-                           <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
-                             <div>
-                               <h4 className="font-bold mb-2">Women</h4>
-                               <ul>
-                                  <li className="text-sm my-2" >Dresses</li>
-                                  <li className="text-sm my-2" >Tops</li>
-                                  <li className="text-sm my-2" >Bottoms</li>
-                                  <li className="text-sm my-2" >Accessories</li>
-                               </ul>
-                             </div>
-                             <div>
-                               <h4 className="font-bold mb-2">Men</h4>
-                               <ul>
-                                  <li className="text-sm my-2" >Shirts</li>
-                                  <li className="text-sm my-2" >Trousers</li>
-                                 <li className="text-sm my-2" >Footwears</li>
-                                  <li className="text-sm my-2" >Watches</li>
-                               </ul>
-                             </div>
-                             <div>
-                               <h4 className="font-bold mb-2">Kids</h4>
-                               <ul>
-                                  <li className="text-sm my-2" >Age 2-5</li>
-                                  <li className="text-sm my-2" >Age 6-10</li>
-                                  <li className="text-sm my-2" >Accessories</li>
-                                 <li className="text-sm my-2" >Shoes</li>
-                               </ul>
-                             </div>
-                             <div>
-                               <h4 className="font-bold mb-2">Shopping</h4>
-                               <ul>
-                                 <li className="text-sm my-2" >My Cart</li>
-               <li className="text-sm my-2" >Wishlist</li>
-                                  <li className="text-sm my-2" >Track Order</li>
-                                  <li className="text-sm my-2" >Help Desk</li>
-                               </ul>
-                             </div>
-                             <div>
-                               <h4 className="font-semibold text-sm mb-2">More links</h4>
-                               <ul className="text-sm my-2">
-                                 <li className="text-sm my-2" >Contact Us</li>
-                                 <li className="text-sm my-2">Blog</li>
-                                 <li className="text-sm my-2" >FAQs</li>
-                                 <li className="text-sm my-2">About</li>
-                               </ul>
-                             </div>
-                             <div>
-                               <h4 className="font-semibold my-2 mb-2">Stay In Touch</h4>
-                                                <p className="font-semibold text-xs my-4 mb-2">Stay in touch to get special offers, free giveaways
-              and once in a lifetime deals</p>
-              
-                              <div className="flex items-center my-6 border border-white rounded-md w-[200px]">
-                     {/* Email icon */}
-                     <span className="px-3 text-white">
-                       <FaEnvelope />
-                     </span>
-                   
-                     {/* Email input */}
-                     <input
-                       type="email"
-                       placeholder="Enter your email"
-                       className="flex-1 p-2 bg-transparent placeholder-gray-400 text-white outline-none"
-                     />
-                   </div>
-                             </div>
-                           </div>
-                         <div className="border-t border-gray-700 mt-10 pt-4 flex flex-col md:flex-row items-center justify-center gap-6 text-sm">
-                {/* Terms & Conditions */}
-                <p className="text-gray-300 cursor-pointer hover:text-white transition">
-                  Terms & Conditions
-                </p>
-              
-                {/* Privacy Policy */}
-                <p className="text-gray-400 cursor-pointer hover:text-white transition">
-                  Privacy Policy
-                </p>
-              
-                {/* Social Links */}
-                <div className="flex gap-3 text-lg">
-                  <FaFacebook className="cursor-pointer hover:text-blue-500" />
-                  <FaInstagram className="cursor-pointer hover:text-pink-500" />
-                  <FaWhatsapp className="cursor-pointer hover:text-green-500" />
-                  <FaTwitter className="cursor-pointer hover:text-sky-500" />
-                </div>
-              </div>
-              
-              {/* Copyright */}
-              <p className="text-xs text-gray-500 mt-4 text-center">&copy; 2025 Your Store</p>
-              
-                         </footer>
+  <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
+    <div>
+      <h4 className="font-bold mb-2">Women</h4>
+      <ul>
+        <li className="text-sm my-2">Dresses</li>
+        <li className="text-sm my-2">Tops</li>
+        <li className="text-sm my-2">Bottoms</li>
+        <li className="text-sm my-2">Accessories</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-bold mb-2">Men</h4>
+      <ul>
+        <li className="text-sm my-2">Shirts</li>
+        <li className="text-sm my-2">Trousers</li>
+        <li className="text-sm my-2">Footwears</li>
+        <li className="text-sm my-2">Watches</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-bold mb-2">Kids</h4>
+      <ul>
+        <li className="text-sm my-2">Age 2-5</li>
+        <li className="text-sm my-2">Age 6-10</li>
+        <li className="text-sm my-2">Accessories</li>
+        <li className="text-sm my-2">Shoes</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-bold mb-2">Shopping</h4>
+      <ul>
+        <li className="text-sm my-2">My Cart</li>
+        <li className="text-sm my-2">Wishlist</li>
+        <li className="text-sm my-2">Track Order</li>
+        <li className="text-sm my-2">Help Desk</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-semibold text-sm mb-2">More links</h4>
+      <ul className="text-sm my-2">
+        <li className="text-sm my-2">Contact Us</li>
+        <li className="text-sm my-2">Blog</li>
+        <li className="text-sm my-2">FAQs</li>
+        <li className="text-sm my-2">About</li>
+      </ul>
+    </div>
+    <div>
+      <h4 className="font-semibold my-2 mb-2">Stay In Touch</h4>
+      <p className="font-semibold text-xs my-4 mb-2">
+        Stay in touch to get special offers, free giveaways and once in a lifetime deals
+      </p>
+
+      {/* Responsive email input */}
+      <div className="flex items-center my-6 border border-white rounded-md w-full max-w-xs md:max-w-[200px]">
+        <span className="px-3 text-white">
+          <FaEnvelope />
+        </span>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="flex-1 p-1 text-xs bg-transparent placeholder-gray-400 text-white outline-none"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div className="border-t border-gray-700 mt-10 pt-4 flex flex-col md:flex-row items-center justify-center gap-6 text-sm">
+    <p className="text-gray-300 cursor-pointer hover:text-white transition">
+      Terms & Conditions
+    </p>
+    <p className="text-gray-400 cursor-pointer hover:text-white transition">
+      Privacy Policy
+    </p>
+    <div className="flex gap-3 text-lg">
+      <FaFacebook className="cursor-pointer hover:text-blue-500" />
+      <FaInstagram className="cursor-pointer hover:text-pink-500" />
+      <FaWhatsapp className="cursor-pointer hover:text-green-500" />
+      <FaTwitter className="cursor-pointer hover:text-sky-500" />
+    </div>
+  </div>
+
+  <p className="text-xs text-gray-500 mt-4 text-center">&copy; 2025 Your Store</p>
+</footer>
 </div>
   );
 }
