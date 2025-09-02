@@ -164,7 +164,7 @@ export default function Men() {
             )}
           </div>
 
-          <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button>
+                  <Link to="/wishlist">  <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button></Link>
           <Link to="/cart">
             <button className="relative p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
               <FaShoppingCart size={16} />
@@ -241,38 +241,8 @@ export default function Men() {
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between mb-4">
-          <div className="text-left">
-            <h2 className="text-xl font-bold">New arrivals</h2>
-            <p className="text-xs md:text-sm">The latest additions to our men's collection</p>
-          </div>
-          <Link to="/shop" className="text-sm text-gray-600">View all →</Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {new Array(4).fill({
-            name: "Premium Casual Shirt",
-            price: "₦12,000",
-            image: "/men.png",
-          }).map((item, idx) => (
-            <div key={idx} className="rounded-lg overflow-hidden hover:shadow-md bg-white">
-              <div className="bg-gray-100 p-4 flex items-center justify-center">
-                <img src={item.image} alt={item.name} className="w-full" />
-              </div>
-              <div className="p-3 flex items-center justify-between">
-                <div>
-                  <div className="text-xs md:text-sm font-medium text-gray-900">{item.name}</div>
-                  <div className="text-xs md:text-sm text-gray-600">{item.price}</div>
-                </div>
-                <button className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200">
-                  <FaPlus size={14} />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      
+      
 
       {/* Shop by Category */}
       <section className="bg-gray-50 py-8">

@@ -204,7 +204,7 @@ export default function Shop() {
           </ul>
         )}
       </div>
-      <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button>
+                  <Link to="/wishlist">  <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button></Link>
       <Link to="/cart">
         <button className="relative p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
           <FaShoppingCart size={16} />

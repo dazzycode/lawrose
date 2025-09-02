@@ -15,6 +15,7 @@ import Summer from "../pages/Summer";
 import LoginPage from "../pages/LoginPage";
 import ProductPage from "../pages/ProductPage";
 import Shop from "../pages/Shop";
+import Wishlist from "../pages/Wishlist";
 
 const AllRoutes = ({ user }) => {
   return (
@@ -39,6 +40,8 @@ const AllRoutes = ({ user }) => {
       <Route path="/summer" element={<Summer />} />
       <Route path="/women" element={<Women />} />
       <Route path="/login" element={<LoginPage />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+
     </Routes>
   );
 };

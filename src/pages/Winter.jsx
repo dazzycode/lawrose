@@ -178,7 +178,7 @@ export default function Winter() {
                )}
              </div>
    
-             <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button>
+                  <Link to="/wishlist">  <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button></Link>
              <Link to="/cart">
                <button className="relative p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
                  <FaShoppingCart size={16} />
@@ -273,25 +273,16 @@ export default function Winter() {
   <section className="max-w-5xl mx-auto px-4 py-12">
   <div className="grid grid-cols-1 md:grid-cols-2 border rounded-lg overflow-hidden shadow-sm">
     {/* Image */}
-    <img
-      src="/winter.png"
-      alt="Story"
-      className="h-72  object-cover md:h-auto"
-    />
-
-    {/* Text Content */}
+     {/* Text Content */}
     <div className="p-6 text-justify">
-      <h3 className="font-semibold mb-2">The Story</h3>
+      <h3 className="font-bold mb-2">The Story</h3>
       <p className="text-sm text-gray-600 mb-4">
        Sophisticated layers and rich textures define our autumn-winter collection, designed for the modern urban lifestyle
       </p>
-
-      <h3 className="font-semibold mb-2">Inspiration</h3>
-      <p className="text-sm text-gray-600 mb-4">
-        Mediterranean coastlines, blooming gardens, and the golden hour light
-      </p>
-
-      <h3 className="font-semibold mb-2">Key Pieces</h3>
+</div>
+    {/* Text Content */}
+    <div className="p-6 text-justify">
+       <h3 className="font-bold mb-2">Key Pieces</h3>
       <ul className="list-disc pl-5 text-sm text-gray-600">
         <li>Linen Blend Shirts</li>
         <li>Lightweight Trousers</li>
@@ -332,87 +323,96 @@ export default function Winter() {
 
 
         {/* Products */}
-         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {filteredProducts.map((product, i) => {
-            const isWishlisted = wishlist.includes(product.id); // Directly check from wishlist state
-            return (
-              <div key={i} className="relative text-center group">
-                <button
-                  onClick={async () => {
-                    // Optimistic update
-                    setWishlist(prev =>
-                      isWishlisted
-                        ? prev.filter(id => id !== product.id)
-                        : [...prev, product.id]
-                    );
-        
-                    try {
-                      if (isWishlisted) {
-                        await fetch(`${baseURL}/api/wishlist/remove/${product.id}`, {
-                          method: "DELETE",
-                          headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${localStorage.getItem("token")}`
-                          }
-                        });
-                      } else {
-                        await fetch(`${baseURL}/api/wishlist/add`, {
-                          method: "POST",
-                          headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${localStorage.getItem("token")}`
-                          },
-                          body: JSON.stringify({ productId: product.id })
-                        });
-                      }
-                    } catch (error) {
-                      console.error("Wishlist update failed:", error);
-                      // Rollback if API fails
-                      setWishlist(prev =>
-                        isWishlisted
-                          ? [...prev, product.id]
-                          : prev.filter(id => id !== product.id)
-                      );
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+  {filteredProducts.length === 0 ? (
+    <div className="col-span-full text-center py-10 text-gray-500">
+      No collection available
+    </div>
+  ) : (
+    filteredProducts.map((product, i) => {
+      const isWishlisted = wishlist.includes(product.id);
+      return (
+        <div key={i} className="relative text-center group">
+          {/* Wishlist Button */}
+          <button
+            onClick={async () => {
+              // Optimistic update
+              setWishlist(prev =>
+                isWishlisted
+                  ? prev.filter(id => id !== product.id)
+                  : [...prev, product.id]
+              );
+
+              try {
+                if (isWishlisted) {
+                  await fetch(`${baseURL}/api/wishlist/remove/${product.id}`, {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
-                  }}
-                  className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-110 transition-transform"
-                >
-                  {isWishlisted ? (
-                    <FaHeart className="text-red-500" />
-                  ) : (
-                    <FaRegHeart className="text-gray-400" />
-                  )}
-                </button>
-        
-                <div className="bg-gray-100 p-4 flex items-center justify-center">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-full object-cover"
-                  />
-                </div>
-        
-                <div className="p-3 flex justify-between">
-                  <div>
-                    <p className="mt-2 text-xs md:text-sm font-medium">
-                      {product.name}
-                    </p>
-                    <p className="text-xs md:text-sm text-left text-gray-500">
-                      {product.price}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200"
-                  >
-                    <FaPlus size={14} />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+                  });
+                } else {
+                  await fetch(`${baseURL}/api/wishlist/add`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({ productId: product.id })
+                  });
+                }
+              } catch (error) {
+                console.error("Wishlist update failed:", error);
+                // Rollback if API fails
+                setWishlist(prev =>
+                  isWishlisted
+                    ? [...prev, product.id]
+                    : prev.filter(id => id !== product.id)
+                );
+              }
+            }}
+            className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-110 transition-transform"
+          >
+            {isWishlisted ? (
+              <FaHeart className="text-red-500" />
+            ) : (
+              <FaRegHeart className="text-gray-400" />
+            )}
+          </button>
+
+          {/* Product Image */}
+          <div className="bg-gray-100 p-4 flex items-center justify-center">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="h-full object-cover"
+            />
+          </div>
+
+          {/* Product Info */}
+          <div className="p-3 flex justify-between">
+            <div>
+              <p className="mt-2 text-xs md:text-sm font-medium">
+                {product.name}
+              </p>
+              <p className="text-xs md:text-sm text-left text-gray-500">
+                {product.price}
+              </p>
+            </div>
+            <button
+              onClick={() => handleAddToCart(product)}
+              className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200"
+            >
+              <FaPlus size={14} />
+            </button>
+          </div>
         </div>
-        
+      );
+    })
+  )}
+</div>
+
       </section>
 
       {/* Explore other collections */}

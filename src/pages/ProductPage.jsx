@@ -139,7 +139,7 @@ export default function ProductPage({ user }) {
             <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaSearch size={16} /></button>
             <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button>
             <Link to="/cart">
-              <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaShoppingCart size={16} /></button>
+                  <Link to="/wishlist">  <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button></Link>
             </Link>
             <button>
               <img src="/model.png" alt="user" className="w-6 h-6 rounded-full object-cover" />

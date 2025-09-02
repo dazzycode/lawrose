@@ -1,105 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { FaHeart, FaRegHeart, FaPlus, FaBars, FaEnvelope, FaFacebook, FaInstagram, FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import {
+  FaBars, FaEnvelope, FaFacebook, FaHeart, FaInstagram,
+  FaSearch, FaShoppingCart, FaTimes, FaTwitter, FaWhatsapp
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
-export default function Summer() {
-  // Hardcode collection ID for Summer
-  const collectionId = "summer";
+export default function Wishlist() {
+  const BASE_URL = "https://lawrose-apps.onrender.com/api";
+  const token = localStorage.getItem("token");
 
-  const [products, setProducts] = useState([]);
-  const [wishlist, setWishlist] = useState([]); // store product IDs
-  const [activeTab, setActiveTab] = useState("All");
-  const [loading, setLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
-  const baseURL = "https://lawrose-apps.onrender.com";
-  const token = localStorage.getItem("token");
+
+  // Wishlist state
+  const [wishlist, setWishlist] = useState([
+    {
+      id: 1,
+      name: "Basic Heavy T-Shirt",
+      color: "Black/L",
+      price: 15000,
+      quantity: 1,
+      image: "/product1.png"
+    },
+    {
+      id: 2,
+      name: "Basic Fit T-Shirt",
+      color: "Black/L",
+      price: 35000,
+      quantity: 1,
+      image: "/product1.png"
+    }
+  ]);
+
+  // Derived values
+  const totalQuantity = wishlist.reduce((acc, item) => acc + item.quantity, 0);
+  const subtotal = wishlist.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const shippingCost = 24000; // can be dynamic later
+  const total = subtotal + shippingCost;
+
   const navigate = useNavigate();
 
-  const handleMenuClick = () => {
-    setOpenDropdown(false);
-  };
-
-  useEffect(() => {
-    fetchCollection();
-    fetchWishlist();
-  }, []); // no id dependency since it's hardcoded
-
-  const fetchCollection = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(
-        `${baseURL}/api/collections/${collectionId}?includeProducts=true`
-      );
-      const data = await res.json();
-
-      if (data?.products) {
-        const mappedProducts = data.products.map((p) => ({
-          id: p.id || p._id,
-          name: p.name,
-          price: p.price ? `₦${p.price}` : "N/A",
-          image: p.featuredImage || "/shirt.png",
-          category: p.category || "Uncategorized"
-        }));
-        setProducts(mappedProducts);
-      }
-    } catch (error) {
-      console.error("Failed to fetch collection products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchWishlist = async () => {
-    try {
-      const res = await fetch(`${baseURL}/api/wishlist`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const data = await res.json();
-      const productIds = data?.map((item) => item.productId) || [];
-      setWishlist(productIds);
-    } catch (error) {
-      console.error("Failed to fetch wishlist:", error);
-    }
-  };
-
-  const handleAddToCart = async (product) => {
-    try {
-      await fetch(`${baseURL}/api/cart/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ productId: product.id, quantity: 1 })
-      });
-      alert(`${product.name} added to cart!`);
-    } catch (error) {
-      console.error("Failed to add to cart:", error);
-    }
-  };
-
-  const filteredProducts =
-    activeTab === "All"
-      ? products
-      : products.filter((p) => p.category === activeTab);
-
-  const categories = [
-    'All', 'Shirts', 'Sweatshirt', 'T-Shirt', 'Jackets', 'Polo Shirts',
-    'Hoodies', 'Jeans', 'Tailored Trousers', 'Short', 'Sweatpant',
-    'Windbreakers', 'Overshirts', 'Dress', 'Footwear', 'Bags',
-    'Headwear', 'Eyewaer', 'Socks'
-  ];
-  // Live search suggestions
+  // Search suggestions
   useEffect(() => {
     if (!searchTerm) return setResults([]);
 
     const delayDebounceFn = setTimeout(async () => {
       try {
-        const { data } = await axios.get(`${baseURL}/products/search/suggestions`, {
+        const { data } = await axios.get(`${BASE_URL}/products/search/suggestions`, {
           params: { q: searchTerm, limit: 10 },
         });
         setResults(data || []);
@@ -107,7 +57,7 @@ export default function Summer() {
         console.error("Search suggestions error:", err);
         setResults([]);
       }
-    }, 300); // 300ms debounce
+    }, 300);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
@@ -117,14 +67,15 @@ export default function Summer() {
     setResults([]);
     if (item.slug) navigate(`/product/${item.slug}`);
   };
-  
+
+  // Remove from wishlist
+  const handleDelete = (id) => {
+    setWishlist(prev => prev.filter(item => item.id !== id));
+  };
 
   return (
-    <div className="min-h-screen overflow-x-hidden w-full  sm:px-6 md:px-3 bg-white text-gray-900">
-      {/* Top navigation */}
-    
- 
-   <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
+    <div className="font-libre w-full overflow-x-hidden bg-white text-black">
+ <header className="w-full bg-white sticky top-0 z-50 shadow-md border-b border-gray-200 px-4 md:px-8 py-3 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <Link to="/"><img src="/logo.png" alt="Logo" className="h-8 w-auto" /></Link>
   
@@ -239,189 +190,63 @@ export default function Summer() {
             </nav>
           )}
         </header>
+      {/* WishList */}
+      <div className="p-4 mx-10 my-10 sm:p-6 border rounded-md w-full md:max-w-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="font-semibold text-lg">WishList</h2>
+          <span className="text-sm text-blue-900">({totalQuantity} items)</span>
+        </div>
 
-
-      {/* Hero section */}
-       <section className="relative">
-                   <div
-                     className="h-[29rem] mt-5 w-full bg-center bg-cover"
-                     style={{ backgroundImage: "url('/collectionbg.png')" }}
-                   >
-                     <div className="absolute inset-0 bg-black/50 flex items-center">
-                       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
-                         <div className="max-w-lg">
-                           <span className="text-xs md:text-sm text-gray-200 bg-white/20 px-2 py-2 rounded">Spring Summer 2025</span>
-                           <h1 className="text-white text-3xl md:text-4xl font-bold mt-2">Bloom & Breeze</h1>
-                           <p className="mt-3 text-white/90">
-                          Embrace the warmth of spring with our latest collection featuring  lightweight fabrics, vibrant colors, and effortless silhouettes.
-                           </p>
-                           <Link to="/continue"><button className="mt-4 px-4 py-2 bg-white text-black rounded">Shop collection</button></Link>
-                         </div>
-                         <div className="w-full mx-10 md:w-1/2">
-                           <img src="/summer.png" alt="Bloom & Breeze" className="rounded-lg md:h-96 h-48 " />
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                 </section>
-           
-
-      {/* Story and Inspiration */}
-  <section className="max-w-5xl mx-auto px-4 py-12">
-  <div className="grid grid-cols-1 md:grid-cols-2 border rounded-lg overflow-hidden shadow-sm">
-    {/* Image */}
-        <div className="p-6 text-justify">
-
-    <h3 className="font-bold mb-2">The Story</h3>
-      <p className="text-sm text-gray-600 mb-4">
-        Inspired by the first bloom of spring and the gentle summer breeze, this
-        collection celebrates renewal and freedom. Each piece is designed to
-        move with you through the changing season.
-      </p>
-</div>
-    {/* Text Content */}
-    <div className="p-6 text-justify">
-     <h3 className="font-bold mb-2">Key Pieces</h3>
-      <ul className="list-disc pl-5 text-sm text-gray-600">
-        <li>Linen Blend Shirts</li>
-        <li>Lightweight Trousers</li>
-        <li>Cotton Polo Shirts</li>
-        <li>Summer Jackets</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-
-      {/* Collection pieces */}
-          <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
-      {/* Left side - Title */}
-      <h2 className="text-lg font-bold">
-        Collection pieces ({filteredProducts.length})
-      </h2>
-    
-      {/* Right side - Tabs */}
-      <div className="flex flex-wrap gap-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveTab(cat)}
-            className={`px-4 py-1 rounded-full text-sm ${
-              activeTab === cat
-                ? "bg-black text-white"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-    </div>
-    
-    
-            {/* Products */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-  {filteredProducts.length === 0 ? (
-    <div className="col-span-full text-center py-10 text-gray-500">
-      No collection available
-    </div>
-  ) : (
-    filteredProducts.map((product, i) => {
-      const isWishlisted = wishlist.includes(product.id);
-      return (
-        <div key={i} className="relative text-center group">
-          {/* Wishlist Button */}
-          <button
-            onClick={async () => {
-              // Optimistic update
-              setWishlist(prev =>
-                isWishlisted
-                  ? prev.filter(id => id !== product.id)
-                  : [...prev, product.id]
-              );
-
-              try {
-                if (isWishlisted) {
-                  await fetch(`${baseURL}/api/wishlist/remove/${product.id}`, {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                  });
-                } else {
-                  await fetch(`${baseURL}/api/wishlist/add`, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${localStorage.getItem("token")}`
-                    },
-                    body: JSON.stringify({ productId: product.id })
-                  });
-                }
-              } catch (error) {
-                console.error("Wishlist update failed:", error);
-                // Rollback if API fails
-                setWishlist(prev =>
-                  isWishlisted
-                    ? [...prev, product.id]
-                    : prev.filter(id => id !== product.id)
-                );
-              }
-            }}
-            className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-110 transition-transform"
-          >
-            {isWishlisted ? (
-              <FaHeart className="text-red-500" />
-            ) : (
-              <FaRegHeart className="text-gray-400" />
-            )}
-          </button>
-
-          {/* Product Image */}
-          <div className="bg-gray-100 p-4 flex items-center justify-center">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-full object-cover"
-            />
+        {wishlist.length === 0 ? (
+          <p className="text-gray-500 text-sm text-center py-10">No items in wishlist</p>
+        ) : (
+          <div className="space-y-4">
+            {wishlist.map((item) => (
+              <div
+                key={item.id}
+                className="flex items-center justify-between gap-4 py-4 border-b last:border-b-0"
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-20 sm:w-24 h-20 sm:h-24 object-cover"
+                />
+                <div className="flex-1">
+                  <h3 className="font-medium text-xs">{item.name}</h3>
+                  <p className="text-xs my-2 text-gray-500">{item.color}</p>
+                  <span className="block text-sm text-blue-900">({item.quantity})</span>
+                </div>
+                <div className="text-right">
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="text-red-700 underline text-xs mb-2"
+                  >
+                    Clear
+                  </button>
+                  <p className="text-sm font-medium">₦{item.price.toLocaleString()}</p>
+                </div>
+              </div>
+            ))}
           </div>
+        )}
 
-          {/* Product Info */}
-          <div className="p-3 flex justify-between">
-            <div>
-              <p className="mt-2 text-xs md:text-sm font-medium">
-                {product.name}
-              </p>
-              <p className="text-xs md:text-sm text-left text-gray-500">
-                {product.price}
-              </p>
-            </div>
-            <button
-              onClick={() => handleAddToCart(product)}
-              className="bg-transparent border border-gray-400 text-gray-500 p-2 rounded-md flex items-center justify-center hover:bg-gray-200"
-            >
-              <FaPlus size={14} />
-            </button>
+        <div className="border-t mt-4 pt-4 space-y-2">
+          <div className="flex justify-between">
+            <span className="text-sm">Subtotal</span>
+            <span className="text-xs">₦{subtotal.toLocaleString()}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-sm">Shipping</span>
+            <span className="text-xs">₦{shippingCost.toLocaleString()}</span>
+          </div>
+          <div className="flex justify-between font-bold text-base">
+            <span>Total</span>
+            <span className="text-xs">₦{total.toLocaleString()}</span>
           </div>
         </div>
-      );
-    })
-  )}
-</div>
-
-          </section>
-
- {/* Explore other collections */}
-      <div className="text-center my-12">
-        <h3 className="text-lg font-semibold">Explore other collections</h3>
-       <Link to="/collection"> <button className="mt-4 px-6 py-2 bg-black text-white rounded-full">View all collections</button></Link>
       </div>
 
-      {/* Footer */}
-       <footer className="bg-[#00071B] text-white py-10 px-6 md:px-16 text-sm">
+ <footer className="bg-[#00071B] text-white py-10 px-6 md:px-16 text-sm">
        <div className="grid grid-cols-2 md:grid-cols-6 gap-6">
          <div>
            <h4 className="font-bold mb-2">Women</h4>
@@ -505,7 +330,6 @@ export default function Summer() {
        </div>
      
        <p className="text-xs text-gray-500 mt-4 text-center">&copy; 2025 Your Store</p>
-     </footer>
-    </div>
+     </footer>    </div>
   );
 }

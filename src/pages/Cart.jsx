@@ -212,7 +212,7 @@ export default function Cart() {
                       )}
                     </div>
           
-                    <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button>
+                  <Link to="/wishlist">  <button className="p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors"><FaHeart size={16} /></button></Link>
                     <Link to="/cart">
                       <button className="relative p-2 rounded-full text-black hover:bg-black hover:text-white transition-colors">
                         <FaShoppingCart size={16} />
@@ -310,7 +310,7 @@ export default function Cart() {
         </div>
 
         {/* Right: Order Summary */}
-        <div className="border p-4 rounded-lg bg-white">
+        <div className="border p-2 rounded-lg bg-white">
           <h3 className="font-semibold mb-4">ORDER SUMMARY</h3>
           <div className="flex justify-between text-sm mb-2">
             <span>Subtotal</span>
